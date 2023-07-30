@@ -8,9 +8,9 @@ function App() {
   return (
     <>
       <Header />
-      <ChatList />
+      {/* <ChatList /> */}
       <Chat />
-      <Graph />
+      {/* <Graph /> */}
     </>
   );
 }
