@@ -78,7 +78,7 @@ export default function Chat() {
               {message.sender === 'user' && (
                 <div
                   style={{
-                    backgroundColor: '#4CAF50',
+                    backgroundColor: '#b83333',
                     color: 'white',
                     padding: '10px',
                     borderRadius: '5px',
@@ -104,7 +104,7 @@ export default function Chat() {
             style={{
               padding: '10px 20px',
               borderRadius: '5px',
-              backgroundColor: '#4CAF50',
+              backgroundColor: '#b83333',
               color: 'white',
               border: 'none',
               cursor: 'pointer',
