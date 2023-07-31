@@ -7,8 +7,10 @@ function App() {
   return (
     <>
       <Header />
-      <ChatList />
-      <Chat chatName="Chat 1" />
+      <div>
+        <ChatList />
+        <Chat chatName="Chat 1" />
+      </div>
     </>
   );
 }
