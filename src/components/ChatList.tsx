@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Chat from './Chat';
 
 const ChatList: React.FC = () => {
-  const [chats, setChats] = useState<string[]>(['Chat 1', 'Chat 2', 'Chat 3', 'Chat 4']);
+  const [chats, setChats] = useState<string[]>(['1번 채팅창']);
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
 
   const handleChatClick = (chatName: string) => {
@@ -12,7 +12,7 @@ const ChatList: React.FC = () => {
   };
 
   const handleAddChat = () => {
-    const newChatName = `Chat ${chats.length + 1}`;
+    const newChatName = `${chats.length + 1}번 채팅창`; //채팅 제목 넣는 곳 -> 따로 받으면 될 듯
     setChats((prevChats) => [...prevChats, newChatName]);
   };
 
