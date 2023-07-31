@@ -1,43 +1,134 @@
-import React from "react";
+import React, { useState } from 'react';
 
+export default function Chat(chatName:any) {
+  const [messages, setMessages] = useState<{ sender: string; text: string; }[]>([]);
+  const [inputText, setInputText] = useState('');
+  const [showGraph, setShowGraph] = useState(false);
 
-interface ChatProps {
-  chatName: string;
-}
+  const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setInputText(event.target.value);
+  };
+ 
+  const handleSendMessage = () => {
+    if (inputText.trim() !== '') {
+      const userMessage = { sender: 'user', text: inputText };
+      setMessages((prevMessages) => [...prevMessages, userMessage]);
+      setInputText('');
 
+      setTimeout(() => {
+        const chatbotResponse = { sender: 'chatbot', text: 'I am a chatbot. You said: ' + inputText };
+        setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
+      }, 1000);
+    }
+  };
 
-const Chat: React.FC<ChatProps> = ({ chatName }) => {
-  // 대화 내용을 가져오는 로직 구현
-  // const getChatMessages = (chatName: string): string[] => {
-  //   // 채팅창 이름에 따라 해당 채팅의 대화 내용을 가져오는 로직을 구현
-  //   // 예시로 간단히 임의의 대화 내용을 반환하도록 작성
-  //   if (chatName === 'Chat 1') {
-  //     return ['메시지 1', '메시지 2', '메시지 3'];
-  //   } else if (chatName === 'Chat 2') {
-  //     return ['메시지 A', '메시지 B', '메시지 C'];
-  //   } else if (chatName === 'Chat 3') {
-  //     return ['메시지 X', '메시지 Y', '메시지 Z'];
-  //   } else if (chatName === 'Chat 4') {
-  //     return ['메시지 가', '메시지 나', '메시지 다'];
-  //   } else {
-  //     return [];
-  //   }
-  // };
-
-  // const chatMessages = getChatMessages(chatName);
+  const handleToggleGraph = () => {
+    setShowGraph((prevState) => !prevState);
+  };
 
   return (
-    // <div className="chat-container">
-    //   <h2>{chatName} 대화 내용</h2>
-    //   <ul>
-    //     {chatMessages.map((message, index) => (
-    //       <li key={index}>{message}</li>
-    //     ))}
-    //   </ul>
-    // </div>
-    <text>대화 내용</text>
+   
+    <div style={{ display: 'flex', height: '90vh', backgroundColor: 'white' }}>
+      <div style={{ flex: 42, padding: '20px', borderRight: '1px solid #ccc' }}>
+        <div style={{ height: '580px', overflowY: 'scroll', border: '1px solid #ccc', borderRadius: '5px', padding: '10px' }}>
+          {messages.map((message, index) => (
+            <div key={index} style={{ textAlign: message.sender === 'user' ? 'right' : 'left', marginBottom: '10px' }}>
+              {message.sender === 'chatbot' && (
+                <div
+                  style={{
+                    backgroundColor: '#f1f1f1',
+                    color: 'black',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    display: 'inline-block',
+                    textAlign: 'right',
+                    position: 'relative',
+                  }}
+                >
+                  {message.text}
+                  <div style={{ position: 'absolute', bottom: '-20px', right: '0' }}>
+                    <span
+                      onClick={handleToggleGraph}
+                      style={{
+                        marginRight: '10px',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        fontSize: '12px',
+                      }}
+                    >
+                      상세보기
+                    </span>
+                    <span
+                      onClick={handleSendMessage}
+                      style={{
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        fontSize: '12px',
+                      }}
+                    >
+                      선택하기
+                    </span>
+                  </div>
+                </div>
+              )}
+              {message.sender === 'user' && (
+                <div
+                  style={{
+                    backgroundColor: '#b83333',
+                    color: 'white',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    display: 'inline-block',
+                    textAlign: 'right',
+                  }}
+                >
+                  {message.text}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleInputChange}
+            style={{ flex: '1', padding: '10px', borderRadius: '5px', marginRight: '10px', border: '1px solid #ccc' }}
+          />
+          <button
+            onClick={handleSendMessage}
+            style={{
+              padding: '10px 20px',
+              borderRadius: '5px',
+              backgroundColor: '#b83333',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+          >
+            Send
+          </button>
+        </div>
+      </div>
+      {showGraph && (
+        <div
+          style={{
+            flex: 42,
+            backgroundColor: '#f1f1f1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '16px',
+            background: 'white',
+          }}
+        >
+          <div style={{ width: '90%', height: '90%' }}>
+            <h2 style={{ fontSize: '16px', textAlign: 'left' }}>월별 이용자 수 비교 (2021-2022)</h2>
+
+            <h2 style={{ fontSize: '16px', textAlign: 'left', marginTop: '10px' }}>월별 매출 비교 (2021-2022)</h2>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
-
-export default Chat;
-
