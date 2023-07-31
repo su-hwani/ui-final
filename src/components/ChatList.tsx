@@ -24,11 +24,11 @@ const ChatList: React.FC = () => {
   return (
     <div className="chat-list">
       <div className="chat-sidebar">
-        <button className="chat-item" onClick={handleAddChat}>채팅 추가</button>
+        <button className="chat-item" onClick={handleAddChat}><img className='addlogo' alt='채팅 추가'/></button>
         {chats.map((chatName) => (
           <div key={chatName} className="chat-item" onClick={() => handleChatClick(chatName)}>
             {chatName}
-            <button onClick={() => handleRemoveChat(chatName)}>삭제</button>
+            <button onClick={() => handleRemoveChat(chatName)}><img className='deletelogo' alt='삭제'/></button>
           </div>
         ))}
       </div>

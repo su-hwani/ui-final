@@ -44,7 +44,7 @@
 }
 
 .chat-sidebar {
-  width: 200px;
+  width: 300px;
   padding: 20px;
   border-right: 1px solid #ccc;
   overflow-y: auto;
@@ -79,4 +79,16 @@
   color: #fff;
   border: none;
   border-radius: 5px;
+}
+
+.deletelogo {
+  height: 40px;
+  width: 40px;
+  content: url(https://media.istockphoto.com/id/928418914/ko/벡터/쓰레기통-쓰레기통-쓰레기-빈-아이콘.jpg?s=612x612&w=0&k=20&c=DRBYwNQUSssea4f_Ya73fWsS2KDehRUqF6AQ0z22UfY=);
+}
+
+.addlogo {
+  height: 30px;
+  width: 30px;
+  content: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/PlusCM128.svg/220px-PlusCM128.svg.png);
 }
