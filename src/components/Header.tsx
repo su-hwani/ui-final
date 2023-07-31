@@ -8,7 +8,7 @@ export default function Header() {
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Obzen</span>
-              <img className="h-9 w-auto" src="https://obzen.com/img/logo_red.png" alt="" />
+              <img className="h-9 w-auto" src="https://obzen.com/img/logo_red.png" alt="오브젠 로고" />
             </a>
           </div>
           <div style={{ fontSize: '22px', fontWeight: 'bold', marginRight: '10px' }}>
