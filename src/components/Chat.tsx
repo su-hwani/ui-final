@@ -4,7 +4,6 @@ export default function Chat() {
   const [messages, setMessages] = useState<{ sender: string; text: string; }[]>([]);
   const [inputText, setInputText] = useState('');
   const [showGraph, setShowGraph] = useState(false);
-  const [showOptions, setShowOptions] = useState(true);
 
   const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setInputText(event.target.value);
@@ -19,14 +18,12 @@ export default function Chat() {
       setTimeout(() => {
         const chatbotResponse = { sender: 'chatbot', text: 'I am a chatbot. You said: ' + inputText };
         setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
-        setShowOptions(true);
       }, 1000);
     }
   };
 
-  const handleShowGraph = () => {
-    setShowGraph(true);
-    setShowOptions(false);
+  const handleToggleGraph = () => {
+    setShowGraph((prevState) => !prevState);
   };
 
   return (
@@ -48,31 +45,29 @@ export default function Chat() {
                   }}
                 >
                   {message.text}
-                  {showOptions && (
-                    <div style={{ position: 'absolute', bottom: '-20px', right: '0' }}>
-                      <span
-                        onClick={handleShowGraph}
-                        style={{
-                          marginRight: '10px',
-                          cursor: 'pointer',
-                          textDecoration: 'underline',
-                          fontSize: '12px',
-                        }}
-                      >
-                        상세보기
-                      </span>
-                      <span
-                        onClick={handleShowGraph}
-                        style={{
-                          cursor: 'pointer',
-                          textDecoration: 'underline',
-                          fontSize: '12px',
-                        }}
-                      >
-                        선택하기
-                      </span>
-                    </div>
-                  )}
+                  <div style={{ position: 'absolute', bottom: '-20px', right: '0' }}>
+                    <span
+                      onClick={handleToggleGraph}
+                      style={{
+                        marginRight: '10px',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        fontSize: '12px',
+                      }}
+                    >
+                      상세보기
+                    </span>
+                    <span
+                      onClick={handleSendMessage}
+                      style={{
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        fontSize: '12px',
+                      }}
+                    >
+                      선택하기
+                    </span>
+                  </div>
                 </div>
               )}
               {message.sender === 'user' && (
@@ -128,13 +123,11 @@ export default function Chat() {
         >
           <div style={{ width: '90%', height: '90%' }}>
             <h2 style={{ fontSize: '16px', textAlign: 'left' }}>월별 이용자 수 비교 (2021-2022)</h2>
-            
+
             <h2 style={{ fontSize: '16px', textAlign: 'left', marginTop: '10px' }}>월별 매출 비교 (2021-2022)</h2>
-            
           </div>
         </div>
       )}
     </div>
   );
 };
-
