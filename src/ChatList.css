@@ -1,0 +1,24 @@
+.chat-list-container {
+  width: 200px;
+  border-right: 1px solid #ccc;
+  padding-right: 20px;
+}
+
+.chat-list {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-list-item {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.chat-list-item:last-child {
+  border-bottom: none;
+}
+
+.chat-list-item.active {
+  background-color: #f0f0f0;
+}

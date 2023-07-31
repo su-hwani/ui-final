@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.chat-list {
+  width: 200px;
+  border-right: 1px solid #ccc;
+  padding-right: 20px;
+}
+
+.chat-list-item {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.chat-list-item:last-child {
+  border-bottom: none;
+}
+
+.chat-list-item.active {
+  background-color: #f0f0f0;
+}
+
+.chat-window {
+  flex: 1;
+  padding: 20px;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.chat-window input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
