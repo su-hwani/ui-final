@@ -8,7 +8,7 @@ export default function Chat() {
   const handleInputChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setInputText(event.target.value);
   };
-
+ 
   const handleSendMessage = () => {
     if (inputText.trim() !== '') {
       const userMessage = { sender: 'user', text: inputText };
@@ -27,8 +27,12 @@ export default function Chat() {
   };
 
   return (
+   
     <div style={{ display: 'flex', height: '90vh', backgroundColor: 'white' }}>
-      <div style={{ flex: 1, padding: '20px', borderRight: '1px solid #ccc' }}>
+      <div style={{ backgroundColor: 'white', padding: '20px', flex: 16, minWidth: '0', borderRight: '1px solid #ccc' }}>
+        {/* 채팅 목록을 보여주는 내용 */}
+      </div>
+      <div style={{ flex: 42, padding: '20px', borderRight: '1px solid #ccc' }}>
         <div style={{ height: '580px', overflowY: 'scroll', border: '1px solid #ccc', borderRadius: '5px', padding: '10px' }}>
           {messages.map((message, index) => (
             <div key={index} style={{ textAlign: message.sender === 'user' ? 'right' : 'left', marginBottom: '10px' }}>
@@ -112,7 +116,7 @@ export default function Chat() {
       {showGraph && (
         <div
           style={{
-            flex: 1,
+            flex: 42,
             backgroundColor: '#f1f1f1',
             display: 'flex',
             alignItems: 'center',
