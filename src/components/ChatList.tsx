@@ -5,7 +5,7 @@ import Chat from "./Chat";
 
 const ChatList: React.FC = () => {
   const [chats, setChats] = useState<string[]>(["1번 채팅창"]);
-  const [selectedChat, setSelectedChat] = useState<string | null>(null);
+  const [selectedChat, setSelectedChat] = useState<string>("1번 채팅창");
 
   const handleChatClick = (chatName: string) => {
     setSelectedChat(chatName);
@@ -18,7 +18,7 @@ const ChatList: React.FC = () => {
 
   const handleRemoveChat = (chatName: string) => {
     setChats((prevChats) => prevChats.filter((chat) => chat !== chatName));
-    setSelectedChat(null);
+    setSelectedChat(chatName);
   };
 
   return (
