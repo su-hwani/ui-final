@@ -36,44 +36,47 @@
     transform: rotate(360deg);
   }
 }
-
-.container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-}
-
+/* App.css */
 .chat-list {
-  width: 200px;
-  border-right: 1px solid #ccc;
-  padding-right: 20px;
+  display: flex;
+  height: 100vh;
+  background-color: #f5f5f5;
 }
 
-.chat-list-item {
-  cursor: pointer;
+.chat-sidebar {
+  width: 200px;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #fff;
 }
 
-.chat-list-item:last-child {
-  border-bottom: none;
+.chat-item:hover {
+  background-color: #f5f5f5;
 }
 
-.chat-list-item.active {
-  background-color: #f0f0f0;
-}
-
-.chat-window {
+.chat-content {
   flex: 1;
   padding: 20px;
+  overflow-y: auto;
 }
 
-.message {
+/* 추가된 스타일 */
+.button {
   margin-bottom: 10px;
-}
-
-.chat-window input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
 }
