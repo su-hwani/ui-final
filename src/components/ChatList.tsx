@@ -1,5 +1,6 @@
 import React from "react";
 
 export default function ChatList() {
-  return ;
+  return <div>ChatList</div>;
 }
+
