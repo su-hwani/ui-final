@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Chat() {
+export default function Chat(chatName:any) {
   const [messages, setMessages] = useState<{ sender: string; text: string; }[]>([]);
   const [inputText, setInputText] = useState('');
   const [showGraph, setShowGraph] = useState(false);
@@ -29,9 +29,6 @@ export default function Chat() {
   return (
    
     <div style={{ display: 'flex', height: '90vh', backgroundColor: 'white' }}>
-      <div style={{ backgroundColor: 'white', padding: '20px', flex: 16, minWidth: '0', borderRight: '1px solid #ccc' }}>
-        {/* 채팅 목록을 보여주는 내용 */}
-      </div>
       <div style={{ flex: 42, padding: '20px', borderRight: '1px solid #ccc' }}>
         <div style={{ height: '580px', overflowY: 'scroll', border: '1px solid #ccc', borderRadius: '5px', padding: '10px' }}>
           {messages.map((message, index) => (

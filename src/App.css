@@ -36,3 +36,59 @@
     transform: rotate(360deg);
   }
 }
+/* App.css */
+.chat-list {
+  display: flex;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.chat-sidebar {
+  width: 300px;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.chat-item:hover {
+  background-color: #f5f5f5;
+}
+
+.chat-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* 추가된 스타일 */
+.button {
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.deletelogo {
+  height: 40px;
+  width: 40px;
+  content: url(https://media.istockphoto.com/id/928418914/ko/벡터/쓰레기통-쓰레기통-쓰레기-빈-아이콘.jpg?s=612x612&w=0&k=20&c=DRBYwNQUSssea4f_Ya73fWsS2KDehRUqF6AQ0z22UfY=);
+}
+
+.addlogo {
+  height: 30px;
+  width: 30px;
+  content: url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/PlusCM128.svg/220px-PlusCM128.svg.png);
+}
