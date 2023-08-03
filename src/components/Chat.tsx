@@ -30,6 +30,12 @@ export default function Chat(chatName: any) {
     }
   };
 
+  const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   const handleToggleGraph = () => {
     setShowGraph((prevState) => !prevState);
   };
@@ -49,49 +55,24 @@ export default function Chat(chatName: any) {
           {messages.map((message, index) => (
             <div
               key={index}
-              style={{
-                textAlign: message.sender === "user" ? "right" : "left",
-                marginBottom: "10px",
-              }}
+              className={`text-${
+                message.sender === "user" ? "right" : "left"
+              } mb-10`}
             >
+               
               {message.sender === "chatbot" && (
-                <div
-                  style={{
-                    backgroundColor: "#f1f1f1",
-                    color: "black",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    display: "inline-block",
-                    textAlign: "right",
-                    position: "relative",
-                  }}
-                >
+                <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
                   {message.text}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "-20px",
-                      right: "0",
-                    }}
-                  >
+                  <div className="ml-4">
                     <span
                       onClick={handleToggleGraph}
-                      style={{
-                        marginRight: "10px",
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        fontSize: "12px",
-                      }}
+                      className="mr-2 cursor-pointer underline text-sm"
                     >
                       상세보기
                     </span>
                     <span
                       onClick={handleSendMessage}
-                      style={{
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        fontSize: "12px",
-                      }}
+                      className="cursor-pointer underline text-sm"
                     >
                       선택하기
                     </span>
@@ -100,14 +81,7 @@ export default function Chat(chatName: any) {
               )}
               {message.sender === "user" && (
                 <div
-                  style={{
-                    backgroundColor: "#b83333",
-                    color: "white",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    display: "inline-block",
-                    textAlign: "right",
-                  }}
+                  className="bg-red-600 text-white p-4 rounded-lg inline-block text-right"
                 >
                   {message.text}
                 </div>
@@ -115,36 +89,19 @@ export default function Chat(chatName: any) {
             </div>
           ))}
         </div>
-        <div
-          style={{
-            marginTop: "10px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
+        <div className="mt-4 flex items-center justify-end">
           <input
             type="text"
             value={inputText}
             onChange={handleInputChange}
-            style={{
-              flex: "1",
-              padding: "10px",
-              borderRadius: "5px",
-              marginRight: "10px",
-              border: "1px solid #ccc",
-            }}
+            onKeyPress={handleEnterKeyPress}
+            className={`flex-1 p-4 rounded-lg mr-2 ${
+              inputText.trim() ? "border-1 border-gray-300" : "border border-gray-300"
+            }`}
           />
           <button
             onClick={handleSendMessage}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "5px",
-              backgroundColor: "#b83333",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="p-4 rounded-lg bg-red-600 text-white border-none cursor-pointer"
           >
             Send
           </button>
