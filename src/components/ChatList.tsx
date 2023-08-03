@@ -5,7 +5,7 @@ import Chat from './Chat';
 
 const ChatList: React.FC = () => {
   const [chats, setChats] = useState<string[]>(['1번 채팅창']);
-  const [selectedChat, setSelectedChat] = useState<string | null>(null);
+  const [selectedChat, setSelectedChat] = useState<string>('1번 채팅창');
 
   const handleChatClick = (chatName: string) => {
     setSelectedChat(chatName);
@@ -18,12 +18,13 @@ const ChatList: React.FC = () => {
 
   const handleRemoveChat = (chatName: string) => {
     setChats((prevChats) => prevChats.filter((chat) => chat !== chatName));
-    setSelectedChat(null);
+    setSelectedChat(chatName);
   };
 
   return (
     <div className="chat-list">
       <div className="chat-sidebar">
+        
         <button className="chat-item" onClick={handleAddChat}><img className='addlogo' alt='채팅 추가'/></button>
         {chats.map((chatName) => (
           <div key={chatName} className="chat-item" onClick={() => handleChatClick(chatName)}>
@@ -32,9 +33,11 @@ const ChatList: React.FC = () => {
           </div>
         ))}
       </div>
+      {/* 윗부분 */}
       <div className="chat-content">
         {selectedChat && <Chat chatName={selectedChat} />}
       </div>
+      {/* 윗부분 */}
     </div>
   );
 };

@@ -9,7 +9,7 @@ function App() {
     <>
       <Header />
       <ChatList />
-      <Chat chatName="Chat 1" />
+      {/* <Chat chatName="Chat 1" /> */}
       {/* <Graph /> */}
     </>
   );
