@@ -7,10 +7,9 @@ function App() {
   return (
     <>
       <Header />
-      <div>
-        <ChatList />
-        <Chat chatName="Chat 1" />
-      </div>
+      <ChatList />
+      {/* <Chat chatName="Chat 1" /> */}
+      {/* <Graph /> */}
     </>
   );
 }
