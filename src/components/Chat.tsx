@@ -50,6 +50,7 @@ export default function Chat(chatName: any) {
             border: "1px solid #ccc",
             borderRadius: "5px",
             padding: "10px",
+            position: "relative",
           }}
         >
           {messages.map((message, index) => (
@@ -59,26 +60,29 @@ export default function Chat(chatName: any) {
                 message.sender === "user" ? "right" : "left"
               } mb-10`}
             >
-               
               {message.sender === "chatbot" && (
-                <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
-                  {message.text}
-                  <div className="ml-4">
-                    <span
-                      onClick={handleToggleGraph}
-                      className="mr-2 cursor-pointer underline text-sm"
-                    >
-                      상세보기
-                    </span>
-                    <span
-                      onClick={handleSendMessage}
-                      className="cursor-pointer underline text-sm"
-                    >
-                      선택하기
-                    </span>
-                  </div>
-                </div>
-              )}
+            <div>
+              <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
+                {message.text}
+              </div>
+              {/* Move the buttons here, inside the chatbot message div */}
+              <div className="mt-2 flex items-center">
+                <span
+                  onClick={handleToggleGraph}
+                  className="cursor-pointer underline text-sm mr-2"
+                >
+                  상세보기
+                </span>
+                <span
+                  onClick={handleSendMessage}
+                  className="cursor-pointer underline text-sm"
+                >
+                  선택하기
+                </span>
+              </div>
+            </div>
+          )}
+
               {message.sender === "user" && (
                 <div
                   className="bg-red-600 text-white p-4 rounded-lg inline-block text-right"
