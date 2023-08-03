@@ -86,7 +86,7 @@ export default function Chat(chatName: any) {
           )}
           {message.sender === "user" && (
             <div
-              className="bg-obzen-light-purple text-black p-4 rounded-lg inline-block text-right"
+              className="bg-violet-100 text-black p-4 rounded-lg inline-block text-right"
             >
               {message.text}
             </div>
