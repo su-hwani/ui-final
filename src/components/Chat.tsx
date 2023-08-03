@@ -30,6 +30,7 @@ export default function Chat(chatName: any) {
     }
   };
 
+  // 엔터키로 입력 가능
   const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       handleSendMessage();
