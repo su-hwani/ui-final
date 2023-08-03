@@ -28,10 +28,10 @@ const ChatList: React.FC = () => {
           <TbMessageCirclePlus  className="h-8 w-8 "/>
         </button>
         {chats.map((chatName) => (
-          <div key={chatName} className={` p-1 h-14 hover:bg-violet-50 cursor-pointer  text-obzen-purple ${selectedChat === chatName ? 'bg-violet-100 rounded-lg' : 'bg-white rounded-lg'}`} onClick={() => handleChatClick(chatName)}>
-            <text className="border-r font-bold align-middle text-lg ">{chatName}</text>
-            <button className=" float-right p-1 rounded-lg border-solid border-2 border-obzen-purple" onClick={() => handleRemoveChat(chatName)}>
-              <TbMessageCircleX className="h-8 w-8"/>
+          <div key={chatName} className={` p-1 h-14 hover:bg-violet-50 cursor-pointer  ${selectedChat === chatName ? 'bg-violet-100 rounded-lg' : 'bg-white rounded-lg'}`} onClick={() => handleChatClick(chatName)}>
+            <text className="border-r font-bold align-middle text-lg text-obzen-purple">{chatName}</text>
+            <button className=" float-right p-1 rounded-lg border-solid border-2 border-obzen-purple " onClick={() => handleRemoveChat(chatName)}>
+              <TbMessageCircleX className="h-8 w-8 text-obzen-purple"/>
             </button>
           </div>
         ))}
