@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
 import Graph from "./Graph";
 
 export default function Chat(chatName: any) {
@@ -83,32 +84,38 @@ export default function Chat(chatName: any) {
               </div>
             </div>
           )}
-
-              {message.sender === "user" && (
-                <div
-                  className="bg-red-600 text-white p-4 rounded-lg inline-block text-right"
-                >
-                  {message.text}
-                </div>
-              )}
+          {message.sender === "user" && (
+            <div
+              className="bg-obzen-light-purple text-black p-4 rounded-lg inline-block text-right"
+            >
+              {message.text}
+            </div>
+          )}
             </div>
           ))}
         </div>
-        <div className="mt-4 flex items-center justify-end">
-          <input
-            type="text"
-            value={inputText}
-            onChange={handleInputChange}
-            onKeyPress={handleEnterKeyPress}
-            className={`flex-1 p-4 rounded-lg mr-2 ${
-              inputText.trim() ? "border-1 border-gray-300" : "border border-gray-300"
-            }`}
-          />
-          <button
+          <div className="mt-4 flex items-center justify-end">
+            <input
+              type="text"
+              value={inputText}
+              onChange={handleInputChange}
+              onKeyPress={handleEnterKeyPress}
+              className={`flex-1 p-4 rounded-lg mr-2 border default-border"}`}
+            />
+            <button
             onClick={handleSendMessage}
-            className="p-4 rounded-lg bg-red-600 text-white border-none cursor-pointer"
+            className="p-5 rounded-lg bg-white text-gray-500 border cursor-pointer border-default-border focus:border-gray-400"
+            style={{ borderWidth: "1px", borderColor: "#ccc" }} // Default border width and color
+            onFocus={(e) => {
+              e.currentTarget.style.borderWidth = "2px"; // Adjust border width on focus
+              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderWidth = "1px"; // Revert border width on blur
+              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
+            }}
           >
-            Send
+            <FaPaperPlane />
           </button>
         </div>
       </div>
