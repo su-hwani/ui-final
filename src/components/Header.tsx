@@ -1,20 +1,8 @@
-import React from "react";
-
 export default function Header() {
   return (
     <div>
-      <div
-        style={{ height: "10vh", backgroundColor: "white", marginTop: "20px" }}
-      >
-        <div
-          style={{
-            display: "flex",
-            height: "10vh",
-            padding: "30px",
-            borderRight: "1px solid #ccc",
-            alignItems: "center",
-          }}
-        >
+      <div className="h-20 bg-white pb-4">
+        <div className="flex h-5 items-center p-10 justify-between"> {/* Use justify-between class */}
           <div className="flex lg:flex-1">
             <a href="#!" className="-m-1.5 p-1.5">
               <img
@@ -25,19 +13,12 @@ export default function Header() {
               <span className="sr-only">Obzen</span>
             </a>
           </div>
-          <div
-            style={{
-              fontSize: "22px",
-              fontWeight: "bold",
-              marginRight: "10px",
-            }}
-          >
+          <div className="text-2xl font-bold">
             {new Date().toLocaleTimeString()}
           </div>
         </div>
       </div>
-      <div style={{ borderTop: "1px solid #ccc" }}></div>{" "}
-      {/* This creates the line */}
+      <div className="border-b border-default-border"></div>
     </div>
   );
 }

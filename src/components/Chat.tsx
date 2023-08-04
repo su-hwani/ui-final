@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
 import Graph from "./Graph";
 
 export default function Chat(chatName: any) {
@@ -30,6 +31,13 @@ export default function Chat(chatName: any) {
     }
   };
 
+  // 엔터키로 입력 가능
+  const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   const handleToggleGraph = () => {
     setShowGraph((prevState) => !prevState);
   };
@@ -44,109 +52,70 @@ export default function Chat(chatName: any) {
             border: "1px solid #ccc",
             borderRadius: "5px",
             padding: "10px",
+            position: "relative",
           }}
         >
           {messages.map((message, index) => (
             <div
               key={index}
-              style={{
-                textAlign: message.sender === "user" ? "right" : "left",
-                marginBottom: "10px",
-              }}
+              className={`text-${
+                message.sender === "user" ? "right" : "left"
+              } mb-10`}
             >
               {message.sender === "chatbot" && (
-                <div
-                  style={{
-                    backgroundColor: "#f1f1f1",
-                    color: "black",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    display: "inline-block",
-                    textAlign: "right",
-                    position: "relative",
-                  }}
+            <div>
+              <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
+                {message.text}
+              </div>
+              {/* Move the buttons here, inside the chatbot message div */}
+              <div className="mt-2 flex items-center">
+                <span
+                  onClick={handleToggleGraph}
+                  className="cursor-pointer underline text-sm mr-2"
                 >
-                  {message.text}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "-20px",
-                      right: "0",
-                    }}
-                  >
-                    <span
-                      onClick={handleToggleGraph}
-                      style={{
-                        marginRight: "10px",
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        fontSize: "12px",
-                      }}
-                    >
-                      상세보기
-                    </span>
-                    <span
-                      onClick={handleSendMessage}
-                      style={{
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                        fontSize: "12px",
-                      }}
-                    >
-                      선택하기
-                    </span>
-                  </div>
-                </div>
-              )}
-              {message.sender === "user" && (
-                <div
-                  style={{
-                    backgroundColor: "#b83333",
-                    color: "white",
-                    padding: "10px",
-                    borderRadius: "5px",
-                    display: "inline-block",
-                    textAlign: "right",
-                  }}
+                  상세보기
+                </span>
+                <span
+                  onClick={handleSendMessage}
+                  className="cursor-pointer underline text-sm"
                 >
-                  {message.text}
-                </div>
-              )}
+                  선택하기
+                </span>
+              </div>
+            </div>
+          )}
+          {message.sender === "user" && (
+            <div
+              className="bg-violet-100 text-black p-4 rounded-lg inline-block text-right"
+            >
+              {message.text}
+            </div>
+          )}
             </div>
           ))}
         </div>
-        <div
-          style={{
-            marginTop: "10px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          <input
-            type="text"
-            value={inputText}
-            onChange={handleInputChange}
-            style={{
-              flex: "1",
-              padding: "10px",
-              borderRadius: "5px",
-              marginRight: "10px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <button
+          <div className="mt-4 flex items-center justify-end">
+            <input
+              type="text"
+              value={inputText}
+              onChange={handleInputChange}
+              onKeyPress={handleEnterKeyPress}
+              className={`flex-1 p-4 rounded-lg mr-2 border default-border"}`}
+            />
+            <button
             onClick={handleSendMessage}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "5px",
-              backgroundColor: "#b83333",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
+            className="p-5 rounded-lg bg-white text-gray-500 border cursor-pointer border-default-border focus:border-gray-400"
+            style={{ borderWidth: "1px", borderColor: "#ccc" }} // Default border width and color
+            onFocus={(e) => {
+              e.currentTarget.style.borderWidth = "2px"; // Adjust border width on focus
+              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderWidth = "1px"; // Revert border width on blur
+              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
             }}
           >
-            Send
+            <FaPaperPlane />
           </button>
         </div>
       </div>
