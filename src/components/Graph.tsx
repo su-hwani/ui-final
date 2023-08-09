@@ -3,7 +3,6 @@ import BarChart from "./BarChart";
 import { BarDatum } from "@nivo/bar";
 import DetailHeader from "./DetailHeader";
 import { FaCircleNotch } from "react-icons/fa"; // Import the circle-notch icon
-// import ChartWrapper from "./ChartWrapper";
 
 interface GraphProps {
   isGraphLoading: boolean;
