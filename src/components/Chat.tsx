@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Graph from "./Graph";
+import { FaCircleNotch } from "react-icons/fa"; // Import the circle-notch icon
+
 
 export default function Chat(chatName: any) {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
@@ -10,6 +12,8 @@ export default function Chat(chatName: any) {
   const [showGraph, setShowGraph] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGraphLoading, setIsGraphLoading] = useState(false);
+
 
 
   const handleInputChange = (event: {
@@ -48,7 +52,13 @@ export default function Chat(chatName: any) {
 
   const handleToggleGraph = () => {
     setShowGraph((prevState) => !prevState);
+    setIsGraphLoading(true);
+
+    setTimeout(() => {
+      setIsGraphLoading(false);
+    }, 1000);
   };
+
 
   return (
     <div style={{ display: "flex", height: "90vh", backgroundColor: "white" }}>
@@ -101,7 +111,17 @@ export default function Chat(chatName: any) {
           )}
             </div>
           ))}
+          
+        {isLoading ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-8 h-8 text-violet-400 animate-spin">
+              <FaCircleNotch />
+              </div>
+            <span className="text-sm text-gray-500 mt-1">Loading Message...</span>
+          </div>
+        ) : null}
         </div>
+        
         <div className="mt-4 flex items-center justify-end">
           <input
             type="text"
@@ -121,17 +141,8 @@ export default function Chat(chatName: any) {
             <FaPaperPlane className={`text-gray-500 group-hover:text-violet-400`} />
           </button>
         </div>
-        {isLoading && (
-          <div className="text-center mt-2">Waiting message...</div>
-        )}
       </div>
-      {showGraph && <Graph />}
-      {isLoading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75">
-          <div className="w-8 h-8 mr-2 border-t-4 border-blue-500 animate-spin" />
-          Loading...
-        </div>
-      )}
+      {showGraph && <Graph isGraphLoading={isGraphLoading} />}
     </div>
   );
 }
