@@ -9,6 +9,7 @@ export default function Chat(chatName: any) {
   const [inputText, setInputText] = useState("");
   const [showGraph, setShowGraph] = useState(false);
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const handleInputChange = (event: {
@@ -17,8 +18,11 @@ export default function Chat(chatName: any) {
     setInputText(event.target.value);
   };
 
+  
   const handleSendMessage = () => {
     if (inputText.trim() !== "") {
+      setIsLoading(true);
+
       const userMessage = { sender: "user", text: inputText };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInputText("");
@@ -29,6 +33,8 @@ export default function Chat(chatName: any) {
           text: "I am a chatbot. You said: " + inputText,
         };
         setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
+
+        setIsLoading(false);
       }, 1000);
     }
   };
@@ -97,26 +103,32 @@ export default function Chat(chatName: any) {
           ))}
         </div>
         <div className="mt-4 flex items-center justify-end">
-      <input
-        type="text"
-        value={inputText}
-        onChange={handleInputChange}
-        onKeyPress={handleEnterKeyPress}
-        className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
-      />
-      <button
-        onClick={handleSendMessage}
-        className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
-          isButtonHovered ? "border-2" : "border-1"
-        }`}
-        onMouseEnter={() => setIsButtonHovered(true)}
-        onMouseLeave={() => setIsButtonHovered(false)}
-      >
-        <FaPaperPlane className={`text-gray-500 group-hover:text-violet-400`} />
-      </button>
-    </div>
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleInputChange}
+            onKeyPress={handleEnterKeyPress}
+            className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
+          />
+          <button
+            onClick={handleSendMessage}
+            className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
+              isButtonHovered ? "border-2" : "border-1"
+            }`}
+            onMouseEnter={() => setIsButtonHovered(true)}
+            onMouseLeave={() => setIsButtonHovered(false)}
+          >
+            <FaPaperPlane className={`text-gray-500 group-hover:text-violet-400`} />
+          </button>
+        </div>
+        {isLoading && (
+          <div className="text-center mt-2">Waiting message...</div>
+        )}
       </div>
       {showGraph && <Graph />}
     </div>
   );
 }
+
+
+
