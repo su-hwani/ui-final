@@ -126,6 +126,12 @@ export default function Chat(chatName: any) {
         )}
       </div>
       {showGraph && <Graph />}
+      {isLoading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75">
+          <div className="w-8 h-8 mr-2 border-t-4 border-blue-500 animate-spin" />
+          Loading...
+        </div>
+      )}
     </div>
   );
 }
