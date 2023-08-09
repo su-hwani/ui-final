@@ -8,6 +8,8 @@ export default function Chat(chatName: any) {
   );
   const [inputText, setInputText] = useState("");
   const [showGraph, setShowGraph] = useState(false);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+
 
   const handleInputChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -94,30 +96,25 @@ export default function Chat(chatName: any) {
             </div>
           ))}
         </div>
-          <div className="mt-4 flex items-center justify-end">
-            <input
-              type="text"
-              value={inputText}
-              onChange={handleInputChange}
-              onKeyPress={handleEnterKeyPress}
-              className={`flex-1 p-4 rounded-lg mr-2 border default-border"}`}
-            />
-            <button
-            onClick={handleSendMessage}
-            className="p-5 rounded-lg bg-white text-gray-500 border cursor-pointer border-default-border focus:border-gray-400"
-            style={{ borderWidth: "1px", borderColor: "#ccc" }} // Default border width and color
-            onFocus={(e) => {
-              e.currentTarget.style.borderWidth = "2px"; // Adjust border width on focus
-              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderWidth = "1px"; // Revert border width on blur
-              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
-            }}
-          >
-            <FaPaperPlane />
-          </button>
-        </div>
+        <div className="mt-4 flex items-center justify-end">
+      <input
+        type="text"
+        value={inputText}
+        onChange={handleInputChange}
+        onKeyPress={handleEnterKeyPress}
+        className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
+      />
+      <button
+        onClick={handleSendMessage}
+        className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
+          isButtonHovered ? "border-2" : "border-1"
+        }`}
+        onMouseEnter={() => setIsButtonHovered(true)}
+        onMouseLeave={() => setIsButtonHovered(false)}
+      >
+        <FaPaperPlane className={`text-gray-500 group-hover:text-violet-400`} />
+      </button>
+    </div>
       </div>
       {showGraph && <Graph />}
     </div>
