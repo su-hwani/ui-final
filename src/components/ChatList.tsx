@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Chat from "./Chat";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaPlus, FaTrash, FaComment } from "react-icons/fa"; // Import the FaComment icon
 
 const ChatList: React.FC = () => {
   const [chats, setChats] = useState<string[]>(["1번 채팅창"]);
@@ -27,8 +27,8 @@ const ChatList: React.FC = () => {
           className="mb-4 p-2 flex items-center justify-center font-bold text-charcoal border-solid border-2 border-charcoal bg-white rounded-lg w-full"
           onClick={handleAddChat}
         >
-          <FaPlus className="h-5 w-5 mr-2" />
-          채팅 추가
+          <FaPlus className="h-4 w-5 mr-2" />
+          New chat
         </button>
         {chats.map((chatName) => (
           <div
@@ -40,12 +40,17 @@ const ChatList: React.FC = () => {
             } border-r`}
             onClick={() => handleChatClick(chatName)}
           >
-            <span className="font-bold text-lg text-gray">{chatName}</span>
+            <span className="flex items-center space-x-2">
+              <FaComment className="h-5 w-5 text-gray" />
+              <span className="font-medium text-lg text-gray">{chatName}</span>
+            </span>
             <button
               className="p-1 rounded-lg hover:text-gray-500"
               onClick={() => handleRemoveChat(chatName)}
             >
-              <FaTrash className="h-4 w-4 text-gray" />
+              <span className="text-xl">
+                <FaTrash className="h-4 w-4 text-gray" />
+              </span>
             </button>
           </div>
         ))}
@@ -56,5 +61,6 @@ const ChatList: React.FC = () => {
     </div>
   );
 };
+
 
 export default ChatList;
