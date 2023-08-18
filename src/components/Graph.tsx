@@ -2,19 +2,33 @@
 import BarChart from "./BarChart";
 import { BarDatum } from "@nivo/bar";
 import DetailHeader from "./DetailHeader";
-// import ChartWrapper from "./ChartWrapper";
+import { FaCircleNotch } from "react-icons/fa"; // Import the circle-notch icon
 
-export default function Graph() {
+interface GraphProps {
+  isGraphLoading: boolean;
+}
+
+const Graph: React.FC<GraphProps> = ({ isGraphLoading }) => {
   return (
-    // TODO: resize parent height
     <div className="px-6 py-2">
       <DetailHeader
-        detailInfo={"최근 1개월동안 모바일 앱에 접속하지 않은 고객은"}
-      />
-      <BarChart data={data} />
+        detailInfo={isGraphLoading
+          ? "" // 로딩 중일 때 빈 문자열로 처리
+          : "최근 1개월동안 모바일 앱에 접속하지 않은 고객은"} isLoading={false}      />
+      {isGraphLoading ? (
+        <div className="relative flex items-center justify-center h-48"> {/* Use h-48 to control the loading circle size */}
+          <div className="w-8 h-8 mr-2 text-violet-400 animate-spin">
+            {/* Use FaCircleNotch icon here */}
+            <FaCircleNotch />
+          </div>
+          Loading Graph...
+        </div>
+      ) : (
+        <BarChart data={data} />
+      )}
     </div>
   );
-}
+};
 
 // TODO: data should be fetched from the server
 const data: BarDatum[] = [
@@ -124,3 +138,4 @@ const data: BarDatum[] = [
     donutColor: "hsl(269, 70%, 50%)",
   },
 ];
+export default Graph;

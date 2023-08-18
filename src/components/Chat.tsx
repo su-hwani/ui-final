@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import Graph from "./Graph";
+import { FaCircleNotch } from "react-icons/fa"; // Import the circle-notch icon
+
 
 export default function Chat(chatName: any) {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
@@ -8,6 +10,11 @@ export default function Chat(chatName: any) {
   );
   const [inputText, setInputText] = useState("");
   const [showGraph, setShowGraph] = useState(false);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGraphLoading, setIsGraphLoading] = useState(false);
+
+
 
   const handleInputChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -15,8 +22,11 @@ export default function Chat(chatName: any) {
     setInputText(event.target.value);
   };
 
+  
   const handleSendMessage = () => {
     if (inputText.trim() !== "") {
+      setIsLoading(true);
+
       const userMessage = { sender: "user", text: inputText };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInputText("");
@@ -27,6 +37,8 @@ export default function Chat(chatName: any) {
           text: "I am a chatbot. You said: " + inputText,
         };
         setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
+
+        setIsLoading(false);
       }, 1000);
     }
   };
@@ -40,7 +52,13 @@ export default function Chat(chatName: any) {
 
   const handleToggleGraph = () => {
     setShowGraph((prevState) => !prevState);
+    setIsGraphLoading(true);
+
+    setTimeout(() => {
+      setIsGraphLoading(false);
+    }, 1000);
   };
+
 
   return (
     <div style={{ display: "flex", height: "90vh", backgroundColor: "white" }}>
@@ -93,33 +111,41 @@ export default function Chat(chatName: any) {
           )}
             </div>
           ))}
+          
+        {isLoading ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-8 h-8 text-violet-400 animate-spin">
+              <FaCircleNotch />
+              </div>
+            <span className="text-sm text-gray-500 mt-1">Loading Message...</span>
+          </div>
+        ) : null}
         </div>
-          <div className="mt-4 flex items-center justify-end">
-            <input
-              type="text"
-              value={inputText}
-              onChange={handleInputChange}
-              onKeyPress={handleEnterKeyPress}
-              className={`flex-1 p-4 rounded-lg mr-2 border default-border"}`}
-            />
-            <button
+        
+        <div className="mt-4 flex items-center justify-end">
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleInputChange}
+            onKeyPress={handleEnterKeyPress}
+            className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
+          />
+          <button
             onClick={handleSendMessage}
-            className="p-5 rounded-lg bg-white text-gray-500 border cursor-pointer border-default-border focus:border-gray-400"
-            style={{ borderWidth: "1px", borderColor: "#ccc" }} // Default border width and color
-            onFocus={(e) => {
-              e.currentTarget.style.borderWidth = "2px"; // Adjust border width on focus
-              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.borderWidth = "1px"; // Revert border width on blur
-              e.currentTarget.style.borderColor = "#ccc"; // You can change the color as well
-            }}
+            className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
+              isButtonHovered ? "border-2" : "border-1"
+            }`}
+            onMouseEnter={() => setIsButtonHovered(true)}
+            onMouseLeave={() => setIsButtonHovered(false)}
           >
-            <FaPaperPlane />
+            <FaPaperPlane className={`text-gray-500 group-hover:text-violet-400`} />
           </button>
         </div>
       </div>
-      {showGraph && <Graph />}
+      {showGraph && <Graph isGraphLoading={isGraphLoading} />}
     </div>
   );
 }
+
+
+
