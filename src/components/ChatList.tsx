@@ -41,7 +41,7 @@ const ChatList: React.FC = () => {
             onClick={() => handleChatClick(chatName)}
           >
             <span className="flex items-center space-x-2">
-              <FaComment className="h-5 w-5 text-gray" />
+            <FaComment className="h-5 w-5 text-gray pointer-events-none" />
               <span className="font-medium text-lg text-gray">{chatName}</span>
             </span>
             <button
