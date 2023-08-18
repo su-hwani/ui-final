@@ -42,7 +42,7 @@ const ChatList: React.FC = () => {
           >
             <span className="font-bold text-lg text-gray">{chatName}</span>
             <button
-              className="p-1 rounded-lg"
+              className="p-1 rounded-lg hover:text-gray-500"
               onClick={() => handleRemoveChat(chatName)}
             >
               <FaTrash className="h-4 w-4 text-gray" />
