@@ -3,8 +3,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import Graph from "./Graph";
 import { FaCircleNotch } from "react-icons/fa"; // Import the circle-notch icon
 
-
-export default function Chat(chatName: any) {
+export default function Chat() {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
   );
@@ -14,15 +13,12 @@ export default function Chat(chatName: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [isGraphLoading, setIsGraphLoading] = useState(false);
 
-
-
   const handleInputChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setInputText(event.target.value);
   };
 
-  
   const handleSendMessage = () => {
     if (inputText.trim() !== "") {
       setIsLoading(true);
@@ -44,7 +40,9 @@ export default function Chat(chatName: any) {
   };
 
   // 엔터키로 입력 가능
-  const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleEnterKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.key === "Enter") {
       handleSendMessage();
     }
@@ -59,93 +57,97 @@ export default function Chat(chatName: any) {
     }, 1000);
   };
 
-
   return (
-    <div style={{ display: "flex", height: "90vh", backgroundColor: "white" }}>
-      <div style={{ flex: 42, padding: "20px", borderRight: "1px solid #ccc" }}>
+    <div className="flex-1 p-4">
+      <div
+        style={{ display: "flex", height: "90vh", backgroundColor: "white" }}
+      >
         <div
-          style={{
-            height: "580px",
-            overflowY: "scroll",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            padding: "10px",
-            position: "relative",
-          }}
+          style={{ flex: 42, padding: "20px", borderRight: "1px solid #ccc" }}
         >
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`text-${
-                message.sender === "user" ? "right" : "left"
-              } mb-10`}
-            >
-              {message.sender === "chatbot" && (
-            <div>
-              <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
-                {message.text}
-              </div>
-              {/* Move the buttons here, inside the chatbot message div */}
-              <div className="mt-2 flex items-center">
-                <span
-                  onClick={handleToggleGraph}
-                  className="cursor-pointer underline text-sm mr-2"
-                >
-                  상세보기
-                </span>
-                <span
-                  onClick={handleSendMessage}
-                  className="cursor-pointer underline text-sm"
-                >
-                  선택하기
-                </span>
-              </div>
-            </div>
-          )}
-          {message.sender === "user" && (
-            <div
-              className="bg-violet-100 text-black p-4 rounded-lg inline-block text-right"
-            >
-              {message.text}
-            </div>
-          )}
-            </div>
-          ))}
-          
-        {isLoading ? (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-8 h-8 text-violet-400 animate-spin">
-              <FaCircleNotch />
-              </div>
-            <span className="text-sm text-gray-500 mt-1">Loading Message...</span>
-          </div>
-        ) : null}
-        </div>
-        
-        <div className="mt-4 flex items-center justify-end">
-          <input
-            type="text"
-            value={inputText}
-            onChange={handleInputChange}
-            onKeyPress={handleEnterKeyPress}
-            className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
-          />
-          <button
-            onClick={handleSendMessage}
-            className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
-              isButtonHovered ? "border-2" : "border-1"
-            }`}
-            onMouseEnter={() => setIsButtonHovered(true)}
-            onMouseLeave={() => setIsButtonHovered(false)}
+          <div
+            style={{
+              height: "580px",
+              overflowY: "scroll",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              padding: "10px",
+              position: "relative",
+            }}
           >
-            <FaPaperPlane className={`text-gray-500 group-hover:text-violet-400`} />
-          </button>
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`text-${
+                  message.sender === "user" ? "right" : "left"
+                } mb-10`}
+              >
+                {message.sender === "chatbot" && (
+                  <div>
+                    <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
+                      {message.text}
+                    </div>
+                    {/* Move the buttons here, inside the chatbot message div */}
+                    <div className="mt-2 flex items-center">
+                      <span
+                        onClick={handleToggleGraph}
+                        className="cursor-pointer underline text-sm mr-2"
+                      >
+                        상세보기
+                      </span>
+                      <span
+                        onClick={handleSendMessage}
+                        className="cursor-pointer underline text-sm"
+                      >
+                        선택하기
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {message.sender === "user" && (
+                  <div className="bg-violet-100 text-black p-4 rounded-lg inline-block text-right">
+                    {message.text}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {isLoading ? (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 text-violet-400 animate-spin">
+                  <FaCircleNotch />
+                </div>
+                <span className="text-sm text-gray-500 mt-1">
+                  Loading Message...
+                </span>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="mt-4 flex items-center justify-end">
+            <input
+              type="text"
+              value={inputText}
+              onChange={handleInputChange}
+              onKeyPress={handleEnterKeyPress}
+              className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
+            />
+            <button
+              onClick={handleSendMessage}
+              className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
+                isButtonHovered ? "border-2" : "border-1"
+              }`}
+              onMouseEnter={() => setIsButtonHovered(true)}
+              onMouseLeave={() => setIsButtonHovered(false)}
+            >
+              <FaPaperPlane
+                className={`text-gray-500 group-hover:text-violet-400`}
+              />
+            </button>
+          </div>
         </div>
+        {showGraph && <Graph isGraphLoading={isGraphLoading} />}
       </div>
-      {showGraph && <Graph isGraphLoading={isGraphLoading} />}
     </div>
   );
 }
-
-
-
