@@ -1,4 +1,4 @@
-import Chat from "./Chat";
+import Chats from "./Chat";
 import ChatService from "../service/chat";
 import ChatList from "./ChatList";
 
@@ -10,7 +10,7 @@ export default function DashBoard({
   return (
     <div className="flex h-screen border-obzen-purple border-solid">
       <ChatList />
-      <Chat />
+      <Chats chatService={chatService} />
     </div>
   );
 }

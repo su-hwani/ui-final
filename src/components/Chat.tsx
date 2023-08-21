@@ -1,51 +1,16 @@
-import React, { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
+import { useState } from "react";
 import Graph from "./Graph";
-import { FaCircleNotch } from "react-icons/fa"; // Import the circle-notch icon
-
-export default function Chat() {
+import ChatService from "../service/chat";
+import NewChatForm from "./NewChatForm";
+export default function Chats({ chatService }: { chatService: ChatService }) {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
   );
-  const [inputText, setInputText] = useState("");
   const [showGraph, setShowGraph] = useState(false);
-  const [isButtonHovered, setIsButtonHovered] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isGraphLoading, setIsGraphLoading] = useState(false);
 
-  const handleInputChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setInputText(event.target.value);
-  };
-
-  const handleSendMessage = () => {
-    if (inputText.trim() !== "") {
-      setIsLoading(true);
-
-      const userMessage = { sender: "user", text: inputText };
-      setMessages((prevMessages) => [...prevMessages, userMessage]);
-      setInputText("");
-
-      setTimeout(() => {
-        const chatbotResponse = {
-          sender: "chatbot",
-          text: "I am a chatbot. You said: " + inputText,
-        };
-        setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
-
-        setIsLoading(false);
-      }, 1000);
-    }
-  };
-
-  // 엔터키로 입력 가능
-  const handleEnterKeyPress = (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === "Enter") {
-      handleSendMessage();
-    }
+  const handleMessages = (newMessage: any) => {
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
   const handleToggleGraph = () => {
@@ -96,7 +61,7 @@ export default function Chat() {
                         상세보기
                       </span>
                       <span
-                        onClick={handleSendMessage}
+                        // onClick={handleSendMessage}
                         className="cursor-pointer underline text-sm"
                       >
                         선택하기
@@ -112,7 +77,7 @@ export default function Chat() {
               </div>
             ))}
 
-            {isLoading ? (
+            {/* {isLoading ? (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-8 h-8 text-violet-400 animate-spin">
                   <FaCircleNotch />
@@ -121,30 +86,12 @@ export default function Chat() {
                   Loading Message...
                 </span>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
-
-          <div className="mt-4 flex items-center justify-end">
-            <input
-              type="text"
-              value={inputText}
-              onChange={handleInputChange}
-              onKeyPress={handleEnterKeyPress}
-              className={`flex-1 p-4 rounded-lg mr-2 border border-gray-500"}`}
-            />
-            <button
-              onClick={handleSendMessage}
-              className={`p-5 rounded-lg bg-white text-gray-400 border cursor-pointer border-border-gray-400 group hover:borde-violet-400 focus:border-gray-300 ${
-                isButtonHovered ? "border-2" : "border-1"
-              }`}
-              onMouseEnter={() => setIsButtonHovered(true)}
-              onMouseLeave={() => setIsButtonHovered(false)}
-            >
-              <FaPaperPlane
-                className={`text-gray-500 group-hover:text-violet-400`}
-              />
-            </button>
-          </div>
+          <NewChatForm
+            onQuestionClick={handleMessages}
+            chatService={chatService}
+          />
         </div>
         {showGraph && <Graph isGraphLoading={isGraphLoading} />}
       </div>
