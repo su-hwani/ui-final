@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ChatListItem from "./ChatListItem";
 import AddChatButton from "./AddChatButton";
 
-export default function ChatList() {
+const ChatList: React.FC = () => {
   const [chats, setChats] = useState<string[]>(["1번 채팅창"]);
   const [selectedChat, setSelectedChat] = useState<string>("1번 채팅창");
 
@@ -39,4 +39,6 @@ export default function ChatList() {
       ))}
     </div>
   );
-}
+};
+
+export default ChatList;
