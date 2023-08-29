@@ -10,7 +10,7 @@ const AddChatButton: React.FC<AddChatButtonProps> = ({ onAddChat }) => {
     <div className="mb-1 flex flex-row gap-2">
         <button
           onClick={onAddChat}
-          className="flex px-3 min-h-[44px] py-1 items-center gap-3 transition-colors duration-200 text-white cursor-pointer text-sm rounded-md border border-white/20 hover:bg-gray-500/10 h-11 flex-grow overflow-hidden"
+          className="flex px-3 min-h-[44px] py-1 items-center gap-3 transition-colors duration-200 text-white cursor-pointer text-sm rounded-md border border-white/20 hover:bg-gray-500/10 h-11 flex-grow overflow-hidden mb-3"
         >
           <BiPlus className="h-5 w-5 shrink-0" />
           <span className="truncate">New chat</span>
