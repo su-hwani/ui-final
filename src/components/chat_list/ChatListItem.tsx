@@ -14,6 +14,7 @@ const ChatListItem: React.FC<ChatListItemProps> = ({ chatName, isSelected, onCha
       role="button" // Use role="button" to indicate it's an interactive element
       className={`flex py-3 px-3 items-center gap-3 relative rounded-md cursor-pointer break-all bg-gray-800 pr-14 hover:bg-gray-800 group ${isSelected ? "bg-list-selected rounded-lg" : "bg-list-background rounded-lg"}`}
       onClick={() => onChatClick(chatName)}
+      style={{ marginBottom: "8px" }} // Add margin to the bottom of each item
     >
       {/* 말풍선 아이콘 */}
       <BiComment className="h-4 w-4 text-white opacity-50 mr-2" />

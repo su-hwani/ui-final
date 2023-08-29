@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Graph from "./Graph";
+import Graph from "./graph/Graph";
 import ChatService from "../service/chat";
 import NewChatForm from "./NewChatForm";
 export default function Chats({ chatService }: { chatService: ChatService }) {

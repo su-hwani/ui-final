@@ -1,6 +1,6 @@
 import Chats from "./Chat";
 import ChatService from "../service/chat";
-import ChatList from "./ChatList";
+import ChatList from "./chat_list/ChatList";
 
 export default function DashBoard({
   chatService,
