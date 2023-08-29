@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { BiComment, BiTrash } from "react-icons/bi";
+import ChatListItem from "./ChatListItem";
+import { BiComment } from "react-icons/bi";
 
 export default function ChatList() {
-  const [chats, setChats] = useState(["1번 채팅창"]);
-  const [selectedChat, setSelectedChat] = useState("1번 채팅창");
+  const [chats, setChats] = useState<string[]>(["1번 채팅창"]);
+  const [selectedChat, setSelectedChat] = useState<string>("1번 채팅창");
 
   const handleChatClick = (chatName: string) => {
     setSelectedChat(chatName);
@@ -25,7 +26,7 @@ export default function ChatList() {
   };
 
   return (
-    <div className="overflow-auto w-1/4 py-4 px-4 border-r border-default-border bg-list-background">
+    <div className="overflow-auto w-1/5 py-4 px-2 border-r border-default-border bg-list-background">
       <div className="mb-1 flex flex-row gap-2">
         <button
           onClick={handleAddChat}
@@ -73,27 +74,13 @@ export default function ChatList() {
         </span>
       </div>
       {chats.map((chatName) => (
-      // <a className="flex py-3 px-3 items-center gap-3 relative rounded-md cursor-pointer break-all bg-gray-800 pr-14 hover:bg-gray-800 group">
-        <div
-            key={chatName}
-            className={`p-2 h-12 flex items-center justify-between hover:bg-list-selected cursor-pointer ${
-              selectedChat === chatName
-                ? "bg-list-selected rounded-lg"
-                : "bg-list-background rounded-lg"
-            } border-r`}
-            onClick={() => handleChatClick(chatName)}
-          >
-            <div className="flex items-center space-x-2">
-              <BiComment className="h-5 w-5 text-white mr-2" />
-              <span className="font-bold text-lg text-white">{chatName}</span>
-            </div>
-            <button
-              className={`p-2 rounded-full bg-list-background`}
-              onClick={() => handleRemoveChat(chatName)}
-            >
-            </button>
-          </div>
-        // </a>
+        <ChatListItem
+          key={chatName}
+          chatName={chatName}
+          isSelected={selectedChat === chatName}
+          onChatClick={handleChatClick}
+          onTrashClick={handleRemoveChat}
+        />
       ))}
     </div>
   );
