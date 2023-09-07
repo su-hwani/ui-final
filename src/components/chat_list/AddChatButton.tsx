@@ -1,17 +1,16 @@
 import React from "react";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus, BiExpand, BiCollapse } from "react-icons/bi";
 import { TbLayoutSidebar, TbLayoutSidebarRight } from "react-icons/tb";
-
 interface AddChatButtonProps {
   onAddChat: () => void;
-  onChatListToggle: () => void; // isChatListVisible를 토글하기 위한 함수
-  isChatListVisible: boolean;
+  onFullScreenToggle: () => void;
+  isFullScreen: boolean;
 }
 
 const AddChatButton: React.FC<AddChatButtonProps> = ({
   onAddChat,
-  onChatListToggle,
-  isChatListVisible,
+  onFullScreenToggle,
+  isFullScreen,
 }) => {
   return (
     <div className="mb-3 flex flex-col gap-2">
@@ -23,13 +22,13 @@ const AddChatButton: React.FC<AddChatButtonProps> = ({
           <BiPlus className="h-5 w-5" />
           <span className="truncate">New chat</span>
         </button>
-        {/* Chat list toggle button */}
+        {/* Full screen toggle button */}
         <button
-          onClick={onChatListToggle}
+          onClick={onFullScreenToggle}
           className="flex items-center justify-center gap-2 px-3 min-h-[44px] py-1 text-white text-sm rounded-md border border-white/20 hover:bg-gray-500/10 h-11 w-11 transition-colors duration-200 cursor-pointer"
         >
-          {/* Toggle icon based on isChatListVisible state */}
-          {isChatListVisible ? (
+          {/* Toggle icon based on isFullScreen state */}
+          {isFullScreen ? (
             <TbLayoutSidebarRight className="h-5 w-5" />
           ) : (
             <TbLayoutSidebar className="h-5 w-5" />
