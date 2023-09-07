@@ -23,7 +23,7 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
   };
 
   return (
-    <div className="flex-1 p-4">
+    <div className="flex-1">
       <div
         style={{ display: "flex", height: "90vh", backgroundColor: "white" }}
       >
