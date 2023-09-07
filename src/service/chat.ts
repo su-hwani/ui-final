@@ -1,4 +1,5 @@
 import HttpClient from "../network/http";
+
 export default class ChatService {
   private http: HttpClient;
 
@@ -12,23 +13,24 @@ export default class ChatService {
     });
   }
 
-  async postTweet(text: String) {
-    return this.http.fetch(`/chats`, {
+  async sendMessage(message: string) {
+    return this.http.fetch(`/chats/reflect`, {
       method: "POST",
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text: message }), // 메시지를 서버로 전송
     });
   }
 
-  async deleteTweet(chatId: number) {
-    return this.http.fetch(`/tweets/${chatId}`, {
+  async deleteChat(chatId: number) {
+    return this.http.fetch(`/chats/${chatId}`, {
       method: "DELETE",
     });
   }
 
-  async updateTweet(chatId: number, text: String) {
-    return this.http.fetch(`/tweets/${chatId}`, {
+  async updateChat(chatId: number, text: string) {
+    return this.http.fetch(`/chats/${chatId}`, {
       method: "PUT",
       body: JSON.stringify({ text }),
     });
   }
 }
+

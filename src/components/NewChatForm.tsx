@@ -12,33 +12,35 @@ export default function NewChatForm({
   chatService,
 }: NewChatFormProps) {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-
   const [inputText, setInputText] = useState("");
+
   const handleInputChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setInputText(event.target.value);
   };
-  const handleSendMessage = () => {
-    if (inputText.trim() !== "") {
-      //   setIsLoading(true);
 
+  const handleSendMessage = async () => {
+    if (inputText.trim() !== "") {
       const userMessage = { sender: "user", text: inputText };
       onQuestionClick(userMessage);
-      //   setMessages((prevMessages) => [...prevMessages, userMessage]);
       setInputText("");
-
-      setTimeout(() => {
-        const chatbotResponse = {
-          sender: "chatbot",
-          text: "I am a chatbot. You said: " + inputText,
-        };
-        onQuestionClick(chatbotResponse);
-        // setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
-        // setIsLoading(false);
-      }, 1000);
+      
+      // <보류>
+      // try {
+      //   const response = await axios.post("/chats/reflect", { question: inputText }); // 서버에 POST 요청 보내기
+      //   const chatbotResponse = {
+      //     sender: "chatbot",
+      //     text: response.data.answer, // 서버 응답을 채팅으로 표시
+      //   };
+      //   console.log(response)
+      //   onQuestionClick(chatbotResponse);
+      // } catch (error) {
+      //   console.error("Error sending message:", error);
+      // }
     }
   };
+
   const handleEnterKeyPress = (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
@@ -46,6 +48,7 @@ export default function NewChatForm({
       handleSendMessage();
     }
   };
+
   return (
     <div className="mt-4 flex items-center justify-end">
       <input
