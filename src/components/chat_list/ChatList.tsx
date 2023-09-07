@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import ChatListItem from "./ChatListItem";
 import AddChatButton from "./AddChatButton";
-import ShowChatListButton from "./ShowChatListButton";
 
-export default function ChatList() {
+export default function ChatList({
+  isChatListVisible, // isChatListVisible를 props로 받음
+  onChatListToggle, // onChatListToggle을 props로 받음
+}: {
+  isChatListVisible: boolean;
+  onChatListToggle: () => void;
+}) {
   const [chats, setChats] = useState<string[]>(["1번 채팅창"]);
   const [selectedChat, setSelectedChat] = useState<string>("1번 채팅창");
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-  const [isChatListVisible, setIsChatListVisible] = useState<boolean>(true);
 
   const handleChatClick = (chatName: string) => {
     setSelectedChat(chatName);
@@ -28,31 +31,18 @@ export default function ChatList() {
     }
   };
 
-  const handleFullScreenToggle = () => {
-    setIsFullScreen((prevFullScreen) => !prevFullScreen);
-  };
-
-  const handleShowChatList = () => {
-    setIsChatListVisible(true);
-  };
-  
   return (
-    <div className={`overflow-auto w-1/5 py-4 px-2 border-r border-default-border bg-list-background ${isFullScreen ? 'hidden' : ''}`}>
-      <AddChatButton onAddChat={handleAddChat} onFullScreenToggle={handleFullScreenToggle} isFullScreen={isFullScreen} />
-      {isChatListVisible && (
-        <>
-      <ShowChatListButton onShowChatList={handleShowChatList} isChatListVisible={isChatListVisible} />
-          {chats.map((chatName) => (
-            <ChatListItem
-              key={chatName}
-              chatName={chatName}
-              isSelected={selectedChat === chatName}
-              onChatClick={handleChatClick}
-              onTrashClick={handleRemoveChat}
-            />
-          ))}
-        </>
-      )}
+    <div className={`overflow-auto w-1/5 py-4 px-2 border-r border-default-border bg-list-background ${!isChatListVisible ? 'hidden' : ''}`}>
+      <AddChatButton onAddChat={handleAddChat} onChatListToggle={onChatListToggle} isChatListVisible={isChatListVisible} />
+      {chats.map((chatName) => (
+        <ChatListItem
+          key={chatName}
+          chatName={chatName}
+          isSelected={selectedChat === chatName}
+          onChatClick={handleChatClick}
+          onTrashClick={handleRemoveChat}
+        />
+      ))}
     </div>
   );
-}  
+}
