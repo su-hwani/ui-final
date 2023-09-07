@@ -1,7 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Graph from "./graph/Graph";
 import ChatService from "../service/chat";
 import NewChatForm from "./NewChatForm";
+import { json } from "stream/consumers";
+
 export default function Chats({ chatService }: { chatService: ChatService }) {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
@@ -9,8 +11,25 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
   const [showGraph, setShowGraph] = useState(false);
   const [isGraphLoading, setIsGraphLoading] = useState(false);
 
-  const handleMessages = (newMessage: any) => {
+  const handleMessages = async (newMessage: any) => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    if (newMessage.sender === "user") {
+      // 사용자 메시지를 서버로 전송하고 챗봇 응답을 반환
+      try {
+        const response = await chatService.sendMessage(newMessage.text);
+
+        const chatbotResponse = {
+          sender: "chatbot",
+          text: response.answer, // 서버 응답의 answer 필드를 채팅창에 표시
+        };
+
+
+        setMessages((prevMessages) => [...prevMessages, chatbotResponse]);
+      } catch (error) {
+        console.error("Error sending message:", error);
+      }
+    }
   };
 
   const handleToggleGraph = () => {
@@ -23,7 +42,7 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
   };
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 p-4">
       <div
         style={{ display: "flex", height: "90vh", backgroundColor: "white" }}
       >
@@ -52,7 +71,6 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
                     <div className="bg-gray-200 text-black p-4 rounded-lg inline-flex items-center justify-end relative">
                       {message.text}
                     </div>
-                    {/* Move the buttons here, inside the chatbot message div */}
                     <div className="mt-2 flex items-center">
                       <span
                         onClick={handleToggleGraph}
@@ -61,7 +79,7 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
                         상세보기
                       </span>
                       <span
-                        // onClick={handleSendMessage}
+                        //onClick={handleSendMessage}
                         className="cursor-pointer underline text-sm"
                       >
                         선택하기
@@ -70,23 +88,13 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
                   </div>
                 )}
                 {message.sender === "user" && (
-                  <div className="bg-violet-100 text-black p-4 rounded-lg inline-block text-right">
+                  <div className="bg-gray-300 text-black p-4 rounded-lg inline-block text-right">
                     {message.text}
                   </div>
                 )}
               </div>
             ))}
 
-            {/* {isLoading ? (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-8 h-8 text-violet-400 animate-spin">
-                  <FaCircleNotch />
-                </div>
-                <span className="text-sm text-gray-500 mt-1">
-                  Loading Message...
-                </span>
-              </div>
-            ) : null} */}
           </div>
           <NewChatForm
             onQuestionClick={handleMessages}
