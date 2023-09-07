@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Graph from "./graph/Graph";
 import ChatService from "../service/chat";
 import NewChatForm from "./NewChatForm";
-import { json } from "stream/consumers";
 
 export default function Chats({ chatService }: { chatService: ChatService }) {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
 import ChatService from "../service/chat";
-import axios from "axios"; // axios import 추가
 
 interface NewChatFormProps {
   onQuestionClick: (newMessage: any) => void;
