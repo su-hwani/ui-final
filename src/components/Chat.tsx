@@ -28,9 +28,10 @@ export default function Chats({ chatService }: { chatService: ChatService }) {
         Cookies.set("sessionID", sessionID, { expires: 1 });
 
         const response = await chatService.sendMessage(
-          sessionID,
-          newMessage.text
-        );
+          sessionID, 
+          newMessage.text);
+
+
         const chatbotResponse = {
           sender: "chatbot",
           text: response.answer, // 서버 응답의 answer 필드를 채팅창에 표시
