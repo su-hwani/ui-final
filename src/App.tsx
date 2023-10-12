@@ -1,13 +1,13 @@
 import "./App.css";
 import Header from "./components/Header";
-import ChatList from "./components/DashBoard";
 import ChatService from "./service/chat";
+import DashBoard from "./components/DashBoard";
 
 function App({ chatService }: { chatService: ChatService }) {
   return (
     <>
       <Header />
-      <ChatList chatService={chatService} />
+      <DashBoard chatService={chatService} />
     </>
   );
 }

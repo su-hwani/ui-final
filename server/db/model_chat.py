@@ -19,6 +19,7 @@ class Chat(Base):
     # question = Column(String(50))
     # answer = Column(String(50))
 
+
 class ChatBase(BaseModel):
     text: str
     # Test 를 위한 sessionID 추가
@@ -34,13 +35,3 @@ def get_db():
 
 
 db_dependency = Annotated[Session, Depends(get_db)]
-
-
-
-# class Post(Base):
-#     __tablename__ = 'posts'
-#
-#     id = Column(Integer, primary_key=True, index=True)
-#     title = Column(String(50))
-#     content = Column(String(100))
-#     user_id = Column(Integer)
