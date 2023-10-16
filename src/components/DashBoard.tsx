@@ -25,7 +25,7 @@ export default function DashBoard({
         onShowChatList={handleToggleChatList}
         isChatListVisible={isChatListVisible}
       />
-      <ChatList isChatListVisible={isChatListVisible} onChatListToggle={handleToggleChatList} />
+      <ChatList isChatListVisible={isChatListVisible} onChatListToggle={handleToggleChatList} chatService={chatService} />
       <Chats chatService={chatService} />
     </div>
   );

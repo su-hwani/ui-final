@@ -24,7 +24,11 @@ async def get_cookie( db:db_dependency):
 @router.get("/session_id", status_code=status.HTTP_201_CREATED)
 async def get_session_id(request: Request, response: Response, db: db_dependency):
     try:
-        session_id = request.cookies["session_id"] # KeyError
+        resp = request.cookies
+
+        if not request.cookies["session_id"]:
+            raise# KeyError
+
         db_session = db.query(Session).filter(Session.session_ID == session_id).all() # ValueError
         if len(db_session) == 0:
             raise ValueError("already exist")

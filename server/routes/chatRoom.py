@@ -54,7 +54,16 @@ async  def get_one_chatRoom(chatRoom_ID: str, request:Request, response:Response
 # chatRoom 생성하기_ver0 -> 랜덤 ID 주입하여 생성하는 방식
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_chatRoom_ver0(request:Request, response:Response, db: db_dependency):
-    try: 
+    try:
+
+        # print(await request.body)
+        # a = await request.body
+        # print(a.decode())
+        # print(request.cookies)
+        # print(request.headers)
+        # print(await request.headers)
+        # print(request.headers.get("cookie"))
+        # print("SERVER")
         result = await get_session_id(request, response, db)
         session_ID = result["data"]["session_id"]
         chatRoom_ID = str(uuid.uuid4())

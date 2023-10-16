@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import ChatListItem from "./ChatListItem";
 import AddChatButton from "./AddChatButton";
+import ChatService from "../../service/chat";
 import "../../App.css";
 
 export default function ChatList({
   isChatListVisible, // isChatListVisible를 props로 받음
   onChatListToggle, // onChatListToggle을 props로 받음
+  chatService,
 }: {
   isChatListVisible: boolean;
   onChatListToggle: () => void;
+  chatService: ChatService;
 }) {
   const [chats, setChats] = useState<string[]>(["1번 채팅창"]);
   const [selectedChat, setSelectedChat] = useState<string>("1번 채팅창");
@@ -42,11 +45,14 @@ export default function ChatList({
   }; */
 
   // 사용자가 재정의한 채팅방 이름만 저장
-  const handleModalConfirm = () => {
+  const handleModalConfirm = async () => {
     if (newChatName.trim() !== "") {
       setChats((prevChats) => [...prevChats, newChatName]);
       setSelectedChat(newChatName);
     }
+    console.log(document.cookie)
+    const response = await chatService.createChatRoom();
+    console.log(response)
     setIsModalOpen(false);
     setNewChatName("");
   };
